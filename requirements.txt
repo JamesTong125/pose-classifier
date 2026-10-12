@@ -1,0 +1,5 @@
+mediapipe==0.10.14
+opencv-contrib-python>=4.8,<4.11  # mediapipe depends on contrib; don't also install opencv-python
+numpy<2
+scikit-learn>=1.3
+tqdm

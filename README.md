@@ -1,6 +1,6 @@
 # Pose Classifier (face + hands)
 
-Built in Python with MediaPipe Holistic and a PyTorch MLP which uses a GPU if it's available.
+A real-time computer vision app that recognizes seated poses (e.g. hand on chin, hand over mouth, face in hands) from a webcam feed, using only face and hand landmarks. Built in Python with MediaPipe Holistic and a PyTorch MLP which uses a GPU if it's available.
 
 ## Setup
 ```bash
@@ -23,10 +23,10 @@ python -m src.train                    # saves the trained model to models/pose_
 python -m src.infer                    # live webcam which detects your pose, 'q' quits the program
 ```
 
-`infer` shows an image for the detected pose beside the webcam feed (used for memes). Put an image per label in
+`infer` shows an image for the detected pose beside the webcam feed. Put an image per label in
 `assets/poses/`, named after the label e.g: `neutral.png`, `hand_on_chin.jpg`, plus optional
 `unknown` and `no_face` images. Labels without an image show their name instead.
 
-Add a new pose by running `collect` with a new label name; folders in `data/raw/` are the labels.
+Add a new pose by adding a folder in `data/raw/` and running `collect` with a new label name.
 Don't mirror frames (`cv2.flip`) between training and inference.
 Only rerun `build_dataset` when images are added or `features.py` change.

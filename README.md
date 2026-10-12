@@ -1,6 +1,6 @@
-# Seated Pose Classifier (face + hands)
+# Pose Classifier (face + hands)
 
-MediaPipe Holistic extracts face, hand and upper-body (shoulder/elbow/wrist) landmarks; a PyTorch MLP (GPU if available) classifies the seated pose.
+Built in Python with MediaPipe Holistic and a PyTorch MLP which uses a GPU if it's available.
 
 ## Setup
 ```bash
@@ -16,17 +16,17 @@ Use Python 3.9-3.12.
 
 ## Workflow (run from project root)
 ```bash
-python -m src.collect neutral          # SPACE or hold 'c' to save frames, 't' for hands-free timer, 'q' quits
-python -m src.collect hand_on_chin     # ~150-300 images per pose
-python -m src.build_dataset            # images -> data/processed/X.npy, y.npy
-python -m src.train                    # saves models/pose_mlp.pt
-python -m src.infer                    # live webcam, 'q' quits
+python -m src.collect neutral          # SPACE or hold 'c' to save frames, 't' for a hands-free timer, 'q' quits the program
+python -m src.collect hand_on_chin     # Collect data for each pose, at least 100 images recommended
+python -m src.build_dataset            # images get processed into a data set at data/processed/X.npy, y.npy
+python -m src.train                    # saves the trained model to models/pose_mlp.pt
+python -m src.infer                    # live webcam which detects your pose, 'q' quits the program
 ```
 
-`infer` shows an image for the detected pose beside the webcam feed. Put one image per label in
-`assets/poses/`, named after the label (`neutral.png`, `hand_on_chin.jpg`, ...), plus optional
+`infer` shows an image for the detected pose beside the webcam feed (used for memes). Put an image per label in
+`assets/poses/`, named after the label e.g: `neutral.png`, `hand_on_chin.jpg`, plus optional
 `unknown` and `no_face` images. Labels without an image show their name instead.
 
 Add a new pose by running `collect` with a new label name; folders in `data/raw/` are the labels.
 Don't mirror frames (`cv2.flip`) between training and inference.
-Only rerun `build_dataset` when images or `features.py` change.
+Only rerun `build_dataset` when images are added or `features.py` change.
